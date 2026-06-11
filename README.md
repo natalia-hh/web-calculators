@@ -21,3 +21,7 @@ npm run build
 ```
 
 Each calculator should keep domain logic inside its own folder under `src/calculators/`, while shared UI components live in `src/components/`.
+
+## License
+
+Proprietary. All rights reserved. This project is not open source, and no permission is granted to copy, distribute, modify, or create derivative works without prior written permission from the copyright holder.
