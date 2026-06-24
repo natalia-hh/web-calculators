@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  font-size: 85%;
+}
+
 :root {
   color-scheme: light;
   font-synthesis: none;
