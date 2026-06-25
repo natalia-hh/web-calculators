@@ -89,6 +89,25 @@ function resolvePrice(
     : entryPrice * (1 + value / 100);
 }
 
+function getDistancePercent(
+  entryPrice: number,
+  price: number,
+  direction: Direction,
+  target: "takeProfit" | "stopLoss"
+) {
+  if (entryPrice <= 0 || price <= 0) return 0;
+
+  if (direction === "long") {
+    return target === "takeProfit"
+      ? ((price - entryPrice) / entryPrice) * 100
+      : ((entryPrice - price) / entryPrice) * 100;
+  }
+
+  return target === "takeProfit"
+    ? ((entryPrice - price) / entryPrice) * 100
+    : ((price - entryPrice) / entryPrice) * 100;
+}
+
 function getResolvedPrices(form: PositionRiskMarginFormState) {
   const entryPrice = toNumber(form.entryPrice);
   const takeProfitValue = toNumber(form.takeProfitValue);
@@ -195,12 +214,50 @@ function syncRiskAndPosition(form: PositionRiskMarginFormState): PositionRiskMar
 
 export const initialState = syncRiskAndPosition(defaults);
 
+function convertPriceInputMode(
+  form: PositionRiskMarginFormState,
+  modeField: "takeProfitMode" | "stopLossMode",
+  nextMode: PriceInputMode
+) {
+  const target = modeField === "takeProfitMode" ? "takeProfit" : "stopLoss";
+  const valueField = target === "takeProfit" ? "takeProfitValue" : "stopLossValue";
+  const currentMode = form[modeField];
+  const currentValue = toNumber(form[valueField]);
+  const entryPrice = toNumber(form.entryPrice);
+
+  if (currentMode === nextMode) return form;
+  if (entryPrice <= 0 || currentValue <= 0) return { ...form, [modeField]: nextMode };
+
+  const currentPrice = resolvePrice(
+    entryPrice,
+    currentMode,
+    currentValue,
+    form.direction,
+    target
+  );
+  const nextValue =
+    nextMode === "price"
+      ? currentPrice
+      : getDistancePercent(entryPrice, currentPrice, form.direction, target);
+
+  if (!Number.isFinite(nextValue) || nextValue <= 0) return { ...form, [modeField]: nextMode };
+
+  return {
+    ...form,
+    [modeField]: nextMode,
+    [valueField]: numberInputValue(nextValue, nextMode === "price" ? 8 : 6)
+  };
+}
+
 export function getNextFormState(
   current: PositionRiskMarginFormState,
   field: PositionRiskMarginField,
   value: string
 ) {
-  const next: PositionRiskMarginFormState = { ...current, [field]: value };
+  let next: PositionRiskMarginFormState =
+    field === "takeProfitMode" || field === "stopLossMode"
+      ? convertPriceInputMode(current, field, value as PriceInputMode)
+      : { ...current, [field]: value };
 
   if (field === "riskPercent") {
     next.lastEditedField = "riskPercent";
