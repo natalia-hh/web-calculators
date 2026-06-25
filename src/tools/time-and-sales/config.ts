@@ -4,7 +4,6 @@ export const SUPPORTED_ASSETS = ["BTC", "ETH", "SOL", "SUI", "XAU"] as const;
 
 export const EXCHANGE_IDS = [
   "crypto-com",
-  "nexo-pro",
   "bitunix",
   "hyperliquid"
 ] as const satisfies readonly ExchangeId[];

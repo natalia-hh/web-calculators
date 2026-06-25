@@ -69,25 +69,25 @@ function TradeRow({
 
   return (
     <div
-      className={`grid grid-cols-[86px_minmax(78px,1fr)_minmax(66px,0.75fr)_minmax(70px,0.75fr)_50px] items-center gap-2 rounded-md px-2 py-1.5 text-xs tabular-nums ${
+      className={`grid grid-cols-[82px_74px_64px_68px_36px] items-center gap-1 rounded-md px-2 py-1.5 text-xs tabular-nums ${sideClass} ${
         isLarge ? largeClass : "hover:bg-slate-50"
       }`}
       title={new Date(trade.timestamp).toISOString()}
     >
-      <span className="font-mono text-slate-500">{formatTradeTime(trade.timestamp)}</span>
-      <span className="truncate text-right font-mono font-semibold text-slate-950">
+      <span className="font-mono">{formatTradeTime(trade.timestamp)}</span>
+      <span className="truncate text-right font-mono font-semibold">
         {formatPrice(trade.price, asset)}
       </span>
-      <span className="truncate text-right font-mono text-slate-700">
+      <span className="truncate text-right font-mono">
         {formatQuantity(trade.quantity, asset)}
       </span>
       <span
-        className="truncate text-right font-mono text-slate-700"
+        className="truncate text-right font-mono"
         title={formatFullNotional(trade.notional)}
       >
         {formatCompactNotional(trade.notional)}
       </span>
-      <span className={`text-right font-mono font-bold uppercase ${sideClass}`}>{trade.side}</span>
+      <span className="text-right font-mono font-bold uppercase">{trade.side}</span>
     </div>
   );
 }
@@ -125,7 +125,7 @@ function ExchangePanel({
         </p>
       </div>
 
-      <div className="grid grid-cols-[86px_minmax(78px,1fr)_minmax(66px,0.75fr)_minmax(70px,0.75fr)_50px] gap-2 border-y border-slate-200 px-2 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">
+      <div className="grid grid-cols-[82px_74px_64px_68px_36px] gap-1 border-y border-slate-200 px-2 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">
         <span>Time</span>
         <span className="text-right">Price</span>
         <span className="text-right">Size</span>
@@ -197,8 +197,8 @@ export function MultiExchangeTimeSales() {
           <button
             className={`inline-flex h-11 items-center justify-center rounded-md px-5 text-sm font-semibold shadow-sm transition ${
               isRunning
-                ? "bg-slate-950 text-white hover:bg-slate-800"
-                : "border border-slate-300 bg-white text-slate-800 hover:border-slate-400 hover:bg-slate-100"
+                ? "bg-emerald-600 text-white hover:bg-emerald-700"
+                : "bg-red-600 text-white hover:bg-red-700"
             }`}
             onClick={isRunning ? stop : start}
             type="button"
@@ -215,7 +215,7 @@ export function MultiExchangeTimeSales() {
         </div>
       </section>
 
-      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {EXCHANGE_IDS.map((exchange) => (
           <ExchangePanel
             asset={asset}

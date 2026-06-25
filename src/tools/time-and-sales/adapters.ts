@@ -568,7 +568,6 @@ export class NexoProTradeFeedAdapter implements TradeFeedAdapter {
 export function createTradeFeedAdapters(): TradeFeedAdapter[] {
   return [
     new CryptoComTradeFeedAdapter(),
-    new NexoProTradeFeedAdapter(),
     new BitunixTradeFeedAdapter(),
     new HyperliquidTradeFeedAdapter()
   ];
