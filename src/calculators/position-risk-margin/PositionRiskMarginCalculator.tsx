@@ -89,7 +89,7 @@ export function PositionRiskMarginCalculator() {
         </div>
       </header>
 
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(360px,0.9fr)]">
+      <div className="grid gap-6 lg:grid-cols-[430px_minmax(360px,0.9fr)]">
         <section className="grid gap-6">
           <InputCard
             title="Account / Risk"
@@ -264,7 +264,7 @@ export function PositionRiskMarginCalculator() {
             </div>
           </InputCard>
 
-          <div className="rounded-lg border border-amber-200 bg-amber-50 px-5 py-4 text-sm leading-6 text-amber-950">
+          <div className="w-full rounded-lg border border-amber-200 bg-amber-50 px-5 py-4 text-sm leading-6 text-amber-950 lg:max-w-[430px]">
             Estimated liquidation price is approximate. Real exchange liquidation price may differ
             because of maintenance margin tiers, mark price, funding, fee-to-close, extra margin,
             cross/isolated margin settings, and exchange-specific rules.

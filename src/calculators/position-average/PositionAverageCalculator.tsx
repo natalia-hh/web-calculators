@@ -55,7 +55,7 @@ export function PositionAverageCalculator() {
         </button>
       </header>
 
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(360px,0.9fr)]">
+      <div className="grid gap-6 lg:grid-cols-[430px_minmax(360px,0.9fr)]">
         <section className="grid gap-6">
           <InputCard
             title="Current Position"
@@ -143,7 +143,7 @@ export function PositionAverageCalculator() {
             </div>
           </InputCard>
 
-          <div className="rounded-lg border border-amber-200 bg-amber-50 px-5 py-4 text-sm leading-6 text-amber-950">
+          <div className="w-full rounded-lg border border-amber-200 bg-amber-50 px-5 py-4 text-sm leading-6 text-amber-950 lg:max-w-[430px]">
             This assumes adding to the same direction position. It does not handle reducing,
             closing, flipping direction, liquidation price, fees, funding, maintenance margin,
             or exchange-specific margin rules.
