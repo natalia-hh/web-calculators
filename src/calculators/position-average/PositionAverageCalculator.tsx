@@ -33,7 +33,7 @@ export function PositionAverageCalculator() {
 
   return (
     <>
-      <header className="flex w-full max-w-[1160px] flex-col gap-5 border-b border-slate-200 pb-7 md:flex-row md:items-end md:justify-between">
+      <header className="flex w-full max-w-[963px] flex-col gap-5 border-b border-slate-200 pb-7 md:flex-row md:items-end md:justify-between">
         <div className="max-w-3xl">
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.16em] text-teal-700">
             Trading position tool
@@ -55,7 +55,7 @@ export function PositionAverageCalculator() {
         </button>
       </header>
 
-      <div className="grid w-full max-w-[1160px] gap-6 lg:grid-cols-[430px_minmax(360px,0.9fr)]">
+      <div className="grid w-full max-w-[963px] gap-6 lg:grid-cols-[430px_minmax(0,513px)]">
         <section className="grid gap-6">
           <InputCard
             title="Current Position"
