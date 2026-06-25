@@ -39,12 +39,14 @@ export type PositionRiskMarginValues = {
   entryPrice: number;
   takeProfitPrice: number;
   stopLossPrice: number;
+  takeProfitDistancePercent: number;
   stopLossDistancePercent: number;
   positionUnits: number;
   marginSize: number;
   entryFee: number;
   exitFeeAtTakeProfit: number;
   exitFeeAtStopLoss: number;
+  maxExitFee: number;
   grossProfitAtTakeProfit: number;
   netProfitAtTakeProfit: number;
   grossLossAtStopLoss: number;

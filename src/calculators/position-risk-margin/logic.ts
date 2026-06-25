@@ -17,10 +17,10 @@ const defaults: PositionRiskMarginFormState = {
   exitFeeRate: "0.06",
   direction: "long",
   entryPrice: "100",
-  takeProfitMode: "percent",
-  takeProfitValue: "1.26",
-  stopLossMode: "percent",
-  stopLossValue: "0.81",
+  takeProfitMode: "price",
+  takeProfitValue: "101.26",
+  stopLossMode: "price",
+  stopLossValue: "99.19",
   lastEditedField: "riskPercent"
 };
 
@@ -322,6 +322,11 @@ export function calculatePositionRiskMargin(form: PositionRiskMarginFormState): 
   const exitNotionalAtStopLoss = positionUnits * stopLossPrice;
   const exitFeeAtTakeProfit = exitNotionalAtTakeProfit * exitFeeRate;
   const exitFeeAtStopLoss = exitNotionalAtStopLoss * exitFeeRate;
+  const maxExitFee = Math.max(exitFeeAtTakeProfit, exitFeeAtStopLoss);
+  const takeProfitDistancePercent =
+    form.direction === "long"
+      ? ((takeProfitPrice - entryPrice) / entryPrice) * 100
+      : ((entryPrice - takeProfitPrice) / entryPrice) * 100;
   const stopLossDistancePercent =
     form.direction === "long"
       ? ((entryPrice - stopLossPrice) / entryPrice) * 100
@@ -361,12 +366,14 @@ export function calculatePositionRiskMargin(form: PositionRiskMarginFormState): 
     entryPrice,
     takeProfitPrice,
     stopLossPrice,
+    takeProfitDistancePercent,
     stopLossDistancePercent,
     positionUnits,
     marginSize,
     entryFee,
     exitFeeAtTakeProfit,
     exitFeeAtStopLoss,
+    maxExitFee,
     grossProfitAtTakeProfit,
     netProfitAtTakeProfit,
     grossLossAtStopLoss,
@@ -415,10 +422,9 @@ export function getCopySummary(values: PositionRiskMarginValues) {
     `Position Size: ${formatMoney(values.positionSize)}`,
     `Units: ${formatUnits(values.positionUnits)}`,
     `Margin: ${formatMoney(values.marginSize)}`,
-    `Gross Profit: ${formatMoney(values.grossProfitAtTakeProfit)}`,
     `Net Profit: ${formatMoney(values.netProfitAtTakeProfit)}`,
-    `Gross Loss: ${formatMoney(values.grossLossAtStopLoss)}`,
     `Net Loss: ${formatMoney(values.netLossAtStopLoss)}`,
+    `Max Exit Fee: ${formatMoney(values.maxExitFee)}`,
     `R:R: ${formatNumber(values.rewardRiskRatio, 2, 2)}`,
     `BE after fees: ${formatNumber(values.breakEvenPrice, 8)}`,
     `Est. Liquidation Price: ${formatNumber(values.estimatedLiquidationPrice, 8)}`

@@ -108,7 +108,7 @@ export function PositionRiskMarginCalculator() {
               />
               <div className="grid gap-4 sm:grid-cols-[180px_180px]">
                 <NumberField
-                  label="Position Size"
+                  label="Position Notional Size"
                   value={form.positionSize}
                   onChange={(value) => updateField("positionSize", value)}
                   helper="When edited, Risk % is recalculated."
@@ -312,7 +312,14 @@ export function PositionRiskMarginCalculator() {
               />
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
                 <ResultItem label="Net Profit at TP" value={formatMoney(values.netProfitAtTakeProfit)} tone="primary" />
-                <ResultItem label="Net Loss at SL" value={formatMoney(values.netLossAtStopLoss)} tone="danger" />
+                <ResultItem
+                  label="Net Loss at SL"
+                  value={formatMoney(values.netLossAtStopLoss)}
+                  helper={`Gross price loss ${formatMoney(values.grossLossAtStopLoss)} + entry fee ${formatMoney(
+                    values.entryFee
+                  )} + SL exit fee ${formatMoney(values.exitFeeAtStopLoss)}.`}
+                  tone="danger"
+                />
               </div>
               <div className="grid gap-3 sm:grid-cols-2">
                 <ResultItem label="Direction" value={values.direction === "long" ? "Long" : "Short"} />
@@ -320,17 +327,7 @@ export function PositionRiskMarginCalculator() {
                 <ResultItem label="Risk" value={formatPercent(values.riskPercent)} />
                 <ResultItem label="Risk Including Fees" value={formatMoney(values.riskAmount)} />
                 <ResultItem label="Entry Price" value={formatPrice(values.entryPrice)} />
-                <ResultItem label="Take Profit Price" value={formatPrice(values.takeProfitPrice)} />
-                <ResultItem label="Stop Loss Price" value={formatPrice(values.stopLossPrice)} />
-                <ResultItem label="Stop Loss Distance" value={formatPercent(values.stopLossDistancePercent)} />
-                <ResultItem label="Position Size" value={formatMoney(values.positionSize)} />
-                <ResultItem label="Position Units" value={formatUnits(values.positionUnits)} />
                 <ResultItem label="Margin Size" value={formatMoney(values.marginSize)} />
-                <ResultItem label="Entry Fee" value={formatMoney(values.entryFee)} />
-                <ResultItem label="Exit Fee at TP" value={formatMoney(values.exitFeeAtTakeProfit)} />
-                <ResultItem label="Exit Fee at SL" value={formatMoney(values.exitFeeAtStopLoss)} />
-                <ResultItem label="Gross Profit at TP" value={formatMoney(values.grossProfitAtTakeProfit)} />
-                <ResultItem label="Gross Loss at SL" value={formatMoney(values.grossLossAtStopLoss)} />
                 <ResultItem
                   label="Break-Even Price after fees"
                   value={formatPrice(values.breakEvenPrice)}
@@ -340,6 +337,14 @@ export function PositionRiskMarginCalculator() {
                   label="Estimated Liquidation Price"
                   value={formatPrice(values.estimatedLiquidationPrice)}
                 />
+                <ResultItem label="Position Size" value={formatMoney(values.positionSize)} />
+                <ResultItem label="Position Units" value={formatUnits(values.positionUnits)} />
+                <ResultItem label="Stop Loss Price" value={formatPrice(values.stopLossPrice)} />
+                <ResultItem label="Stop Loss Distance" value={formatPercent(values.stopLossDistancePercent)} />
+                <ResultItem label="Take Profit Price" value={formatPrice(values.takeProfitPrice)} />
+                <ResultItem label="Take Profit Distance" value={formatPercent(values.takeProfitDistancePercent)} />
+                <ResultItem label="Entry Fee" value={formatMoney(values.entryFee)} />
+                <ResultItem label="Exit Fee at TP/SL (max)" value={formatMoney(values.maxExitFee)} />
               </div>
 
               <button
