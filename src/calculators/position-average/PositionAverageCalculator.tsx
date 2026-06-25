@@ -60,8 +60,9 @@ export function PositionAverageCalculator() {
           <InputCard
             title="Current Position"
             description="Enter your existing size, average entry, and the price where the add-on is planned."
+            className="w-full lg:max-w-[430px]"
           >
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid gap-4 sm:grid-cols-[180px_180px]">
               <NumberField
                 label="Current quantity"
                 value={form.currentQuantity}
@@ -99,8 +100,9 @@ export function PositionAverageCalculator() {
           <InputCard
             title="Add To Position"
             description="Choose whether quantity or notional drives the add-on calculation."
+            className="w-full lg:max-w-[430px]"
           >
-            <div className="mb-5 grid grid-cols-2 rounded-lg bg-slate-100 p-1">
+            <div className="mb-5 grid w-full max-w-[376px] grid-cols-2 rounded-lg bg-slate-100 p-1">
               <ModeButton active={form.addMode === "quantity"} onClick={() => setMode("quantity")}>
                 Add by quantity
               </ModeButton>
@@ -108,7 +110,7 @@ export function PositionAverageCalculator() {
                 Add by notional
               </ModeButton>
             </div>
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid gap-4 sm:grid-cols-[180px_180px]">
               <NumberField
                 label="Additional quantity"
                 value={

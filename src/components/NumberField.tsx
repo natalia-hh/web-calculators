@@ -20,7 +20,7 @@ export function NumberField({
   invalid
 }: NumberFieldProps) {
   return (
-    <label className="block">
+    <label className="block w-full max-w-[180px]">
       <span className="mb-2 block text-sm font-semibold text-slate-700">{label}</span>
       <span className="relative block">
         <input

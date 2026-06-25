@@ -94,8 +94,9 @@ export function PositionRiskMarginCalculator() {
           <InputCard
             title="Account / Risk"
             description="Risk % and Position Size are both editable; the last edited one drives the other."
+            className="w-full lg:max-w-[430px]"
           >
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid gap-4">
               <NumberField
                 label="Account Size"
                 value={form.accountSize}
@@ -105,88 +106,101 @@ export function PositionRiskMarginCalculator() {
                 min={0.01}
                 invalid={validation.invalidFields.accountSize}
               />
-              <NumberField
-                label="Risk"
-                value={form.riskPercent}
-                onChange={(value) => updateField("riskPercent", value)}
-                helper="When edited, Position Size is recalculated."
-                suffix="%"
-                min={0.01}
-                invalid={validation.invalidFields.riskPercent}
-              />
-              <NumberField
-                label="Position Size"
-                value={form.positionSize}
-                onChange={(value) => updateField("positionSize", value)}
-                helper="When edited, Risk % is recalculated."
-                suffix="USDT"
-                min={0.01}
-                invalid={validation.invalidFields.positionSize}
-              />
-              <NumberField
-                label="Leverage"
-                value={form.leverage}
-                onChange={(value) => updateField("leverage", value)}
-                helper="Used for margin and liquidation estimate."
-                suffix="x"
-                min={0.01}
-                invalid={validation.invalidFields.leverage}
-              />
-              <NumberField
-                label="Maintenance Margin Rate"
-                value={form.maintenanceMarginRate}
-                onChange={(value) => updateField("maintenanceMarginRate", value)}
-                helper="Simplified liquidation estimate input."
-                suffix="%"
-                min={0}
-                invalid={validation.invalidFields.maintenanceMarginRate}
-              />
-              <NumberField
-                label="Entry Fee"
-                value={form.entryFeeRate}
-                onChange={(value) => updateField("entryFeeRate", value)}
-                helper="Charged on entry notional."
-                suffix="%"
-                min={0}
-                invalid={validation.invalidFields.entryFeeRate}
-              />
-              <NumberField
-                label="Exit Fee"
-                value={form.exitFeeRate}
-                onChange={(value) => updateField("exitFeeRate", value)}
-                helper="Charged on TP and SL exit notional."
-                suffix="%"
-                min={0}
-                invalid={validation.invalidFields.exitFeeRate}
-              />
+              <div className="grid gap-4 sm:grid-cols-[180px_180px]">
+                <NumberField
+                  label="Position Size"
+                  value={form.positionSize}
+                  onChange={(value) => updateField("positionSize", value)}
+                  helper="When edited, Risk % is recalculated."
+                  suffix="USDT"
+                  min={0.01}
+                  invalid={validation.invalidFields.positionSize}
+                />
+                <NumberField
+                  label="Risk"
+                  value={form.riskPercent}
+                  onChange={(value) => updateField("riskPercent", value)}
+                  helper="When edited, Position Size is recalculated."
+                  suffix="%"
+                  min={0.01}
+                  invalid={validation.invalidFields.riskPercent}
+                />
+              </div>
+              <div className="grid gap-4 sm:grid-cols-[180px_180px]">
+                <NumberField
+                  label="Maintenance Margin Rate"
+                  value={form.maintenanceMarginRate}
+                  onChange={(value) => updateField("maintenanceMarginRate", value)}
+                  helper="Simplified liquidation estimate input."
+                  suffix="%"
+                  min={0}
+                  invalid={validation.invalidFields.maintenanceMarginRate}
+                />
+                <NumberField
+                  label="Leverage"
+                  value={form.leverage}
+                  onChange={(value) => updateField("leverage", value)}
+                  helper="Used for margin and liquidation estimate."
+                  suffix="x"
+                  min={0.01}
+                  invalid={validation.invalidFields.leverage}
+                />
+              </div>
+              <div className="grid gap-4 sm:grid-cols-[180px_180px]">
+                <NumberField
+                  label="Entry Fee"
+                  value={form.entryFeeRate}
+                  onChange={(value) => updateField("entryFeeRate", value)}
+                  helper="Charged on entry notional."
+                  suffix="%"
+                  min={0}
+                  invalid={validation.invalidFields.entryFeeRate}
+                />
+                <NumberField
+                  label="Exit Fee"
+                  value={form.exitFeeRate}
+                  onChange={(value) => updateField("exitFeeRate", value)}
+                  helper="Charged on TP and SL exit notional."
+                  suffix="%"
+                  min={0}
+                  invalid={validation.invalidFields.exitFeeRate}
+                />
+              </div>
             </div>
           </InputCard>
 
           <InputCard
             title="Trade Setup"
             description="Choose direction, entry, and TP/SL as either prices or percentages from entry."
+            className="w-full lg:max-w-[430px]"
           >
-            <div className="mb-5 grid grid-cols-2 rounded-lg bg-slate-100 p-1">
-              <ModeButton active={form.direction === "long"} onClick={() => setDirection("long")}>
-                Long
-              </ModeButton>
-              <ModeButton active={form.direction === "short"} onClick={() => setDirection("short")}>
-                Short
-              </ModeButton>
-            </div>
-
             <div className="grid gap-4">
-              <NumberField
-                label="Entry Price"
-                value={form.entryPrice}
-                onChange={(value) => updateField("entryPrice", value)}
-                helper="Entry price used for size, units, PnL, and liquidation."
-                suffix="USDT"
-                min={0.01}
-                invalid={validation.invalidFields.entryPrice}
-              />
+              <div className="grid gap-4 sm:grid-cols-[180px_180px]">
+                <div>
+                  <span className="mb-2 block text-sm font-semibold text-slate-700">
+                    Direction
+                  </span>
+                  <div className="grid grid-cols-2 rounded-lg bg-slate-100 p-1">
+                    <ModeButton active={form.direction === "long"} onClick={() => setDirection("long")}>
+                      Long
+                    </ModeButton>
+                    <ModeButton active={form.direction === "short"} onClick={() => setDirection("short")}>
+                      Short
+                    </ModeButton>
+                  </div>
+                </div>
+                <NumberField
+                  label="Entry Price"
+                  value={form.entryPrice}
+                  onChange={(value) => updateField("entryPrice", value)}
+                  helper="Entry price used for size, units, PnL, and liquidation."
+                  suffix="USDT"
+                  min={0.01}
+                  invalid={validation.invalidFields.entryPrice}
+                />
+              </div>
 
-              <div className="grid gap-4 sm:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)]">
+              <div className="grid gap-4 sm:grid-cols-[180px_180px]">
                 <div>
                   <span className="mb-2 block text-sm font-semibold text-slate-700">
                     Take Profit Mode
@@ -217,7 +231,7 @@ export function PositionRiskMarginCalculator() {
                 />
               </div>
 
-              <div className="grid gap-4 sm:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)]">
+              <div className="grid gap-4 sm:grid-cols-[180px_180px]">
                 <div>
                   <span className="mb-2 block text-sm font-semibold text-slate-700">
                     Stop Loss Mode
@@ -292,13 +306,13 @@ export function PositionRiskMarginCalculator() {
             <div className="grid gap-3">
               <ResultItem
                 label="R:R After Fees"
-                value={formatNumber(values.rewardRiskRatio, 2, 2)}
+                value={`1 : ${formatNumber(values.rewardRiskRatio, 2, 2)}`}
                 helper={`Profit in R: ${formatNumber(values.rewardRiskRatio, 2, 2)}R · Loss in R: -1R`}
-                tone="primary"
+                tone="accent"
               />
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
-                <ResultItem label="Net Profit at TP" value={formatMoney(values.netProfitAtTakeProfit)} tone="accent" />
-                <ResultItem label="Net Loss at SL" value={formatMoney(values.netLossAtStopLoss)} tone="accent" />
+                <ResultItem label="Net Profit at TP" value={formatMoney(values.netProfitAtTakeProfit)} tone="primary" />
+                <ResultItem label="Net Loss at SL" value={formatMoney(values.netLossAtStopLoss)} tone="danger" />
               </div>
               <div className="grid gap-3 sm:grid-cols-2">
                 <ResultItem label="Direction" value={values.direction === "long" ? "Long" : "Short"} />
