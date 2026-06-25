@@ -52,12 +52,12 @@ export function PositionRiskMarginCalculator() {
 
   return (
     <>
-      <header className="flex flex-col gap-5 border-b border-slate-200 pb-7 md:flex-row md:items-end md:justify-between">
+      <header className="flex w-full max-w-[1160px] flex-col gap-5 border-b border-slate-200 pb-7 md:flex-row md:items-end md:justify-between">
         <div className="max-w-3xl">
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.16em] text-blue-700">
             Crypto futures tool
           </p>
-          <h1 className="text-3xl font-semibold tracking-normal text-slate-950 sm:text-5xl">
+          <h1 className="text-3xl font-semibold tracking-normal text-slate-950 sm:text-4xl">
             Position Risk / Margin Calculator
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600">
@@ -89,7 +89,7 @@ export function PositionRiskMarginCalculator() {
         </div>
       </header>
 
-      <div className="grid gap-6 lg:grid-cols-[430px_minmax(360px,0.9fr)]">
+      <div className="grid w-full max-w-[1160px] gap-6 lg:grid-cols-[430px_minmax(360px,0.9fr)]">
         <section className="grid gap-6">
           <InputCard
             title="Account / Risk"
@@ -315,9 +315,6 @@ export function PositionRiskMarginCalculator() {
                 <ResultItem
                   label="Net Loss at SL"
                   value={formatMoney(values.netLossAtStopLoss)}
-                  helper={`Gross price loss ${formatMoney(values.grossLossAtStopLoss)} + entry fee ${formatMoney(
-                    values.entryFee
-                  )} + SL exit fee ${formatMoney(values.exitFeeAtStopLoss)}.`}
                   tone="danger"
                 />
               </div>
@@ -331,7 +328,6 @@ export function PositionRiskMarginCalculator() {
                 <ResultItem
                   label="Break-Even Price after fees"
                   value={formatPrice(values.breakEvenPrice)}
-                  helper="This is the exit price required to cover both entry and exit fees."
                 />
                 <ResultItem
                   label="Estimated Liquidation Price"
@@ -343,8 +339,11 @@ export function PositionRiskMarginCalculator() {
                 <ResultItem label="Stop Loss Distance" value={formatPercent(values.stopLossDistancePercent)} />
                 <ResultItem label="Take Profit Price" value={formatPrice(values.takeProfitPrice)} />
                 <ResultItem label="Take Profit Distance" value={formatPercent(values.takeProfitDistancePercent)} />
-                <ResultItem label="Entry Fee" value={formatMoney(values.entryFee)} />
-                <ResultItem label="Exit Fee at TP/SL (max)" value={formatMoney(values.maxExitFee)} />
+                <ResultItem label="Fees (max)" value={formatMoney(values.entryFee + values.maxExitFee)} />
+                <ResultItem
+                  label="Entry Fee / Exit Fee at TP/SL (max)"
+                  value={`${formatNumber(values.entryFee, 2, 2)} / ${formatMoney(values.maxExitFee)}`}
+                />
               </div>
 
               <button
